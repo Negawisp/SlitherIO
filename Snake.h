@@ -20,15 +20,13 @@ private:
 public:
 #define SNAKE_MINIMUM_LENGTH 10
 #define INITIAL_R            50.0
-#define L_BETWEEN_SEGMENTS   50.0
+#define D_BETWEEN_SEGMENTS   50.0
 #define	V_STANDARD           100.0  / 1.0
 #define V_ACCELERATED        300.0 / 1.0
 #define TURNING_SPEED        M_PI / 1.0
 
 	void decrease();
 	void grow();
-
-	void initialize_static_fields();
 
     Snake(bool active, int n_segments, double head_x, double head_y, uint32_t color, uint32_t head_color);
 	~Snake();

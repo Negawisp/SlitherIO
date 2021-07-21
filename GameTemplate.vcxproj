@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="CollideLayer.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Food\Food.h" />
     <ClInclude Include="GameObject.h" />

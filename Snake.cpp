@@ -17,9 +17,9 @@ Snake::Snake(bool active, int n_segments, double head_x, double head_y, uint32_t
 	SnakeSegment* prev_segment = _head;
 	for (int i = 0; i < n_segments; i++) {
 		SnakeSegment* segment = SnakeSegment::get_from_pool();
-		double x = prev_segment->get_x() - prev_segment->get_dir_x() * L_BETWEEN_SEGMENTS;
-		double y = prev_segment->get_y() - prev_segment->get_dir_y() * L_BETWEEN_SEGMENTS;
-		segment->instantiate(true, prev_segment, this, color, x, y);
+		double x = prev_segment->get_x() - prev_segment->get_dir_x() * D_BETWEEN_SEGMENTS;
+		double y = prev_segment->get_y() - prev_segment->get_dir_y() * D_BETWEEN_SEGMENTS;
+		segment->instantiate(true, prev_segment, this, color, x, y, D_BETWEEN_SEGMENTS);
 		_snake_segments.push_back(segment);
 		prev_segment = segment;
 	}
@@ -37,10 +37,10 @@ void Snake::grow()
 {
 	SnakeSegment* tail = _snake_segments.back();
 
-	double x = tail->get_x() - tail->get_dir_x() * L_BETWEEN_SEGMENTS;
-	double y = tail->get_y() - tail->get_dir_y() * L_BETWEEN_SEGMENTS;
+	double x = tail->get_x() - tail->get_dir_x() * D_BETWEEN_SEGMENTS;
+	double y = tail->get_y() - tail->get_dir_y() * D_BETWEEN_SEGMENTS;
 	SnakeSegment* segment = SnakeSegment::get_from_pool();
-	segment->instantiate(true, tail, this, _color, x, y);
+	segment->instantiate(true, tail, this, _color, x, y, D_BETWEEN_SEGMENTS);
 	_snake_segments.push_back(segment);
 }
 

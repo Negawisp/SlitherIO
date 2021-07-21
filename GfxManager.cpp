@@ -2,13 +2,18 @@
 #define GFX_MANAGER
 
 
-
 #include "GfxManager.h"
+#include "Constants.h"
 #include "Engine.h"
 #include <math.h>
 
 void GfxManager::drawPoint(int x, int y, uint32_t color)
 {
+	if (x > GAME_FIELD_WIDTH)  { x -= GAME_FIELD_WIDTH;  }
+	if (x < 0)                 { x += GAME_FIELD_WIDTH;  }
+	if (y > GAME_FIELD_HEIGHT) { y -= GAME_FIELD_HEIGHT; }
+	if (y < 0)                 { y += GAME_FIELD_HEIGHT; }
+
 	if (0 <= x && x < SCREEN_WIDTH
 	&&  0 <= y && y < SCREEN_HEIGHT)
 	{

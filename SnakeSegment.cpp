@@ -1,4 +1,5 @@
 #include "SnakeSegment.h"
+#include "Constants.h"
 
 std::vector<SnakeSegment*> SnakeSegment::segments_pool(2*SEGMENTS_POOL_CAPACITY);
 
@@ -101,7 +102,7 @@ SnakeSegment* SnakeSegment::get_from_pool()
 	return back;
 }
 
-void SnakeSegment::instantiate(bool active, SnakeSegment* prev_segment, Snake* owner, uint32_t color, double x, double y)
+void SnakeSegment::instantiate(bool active, SnakeSegment* prev_segment, Snake* owner, uint32_t color, double x, double y, double d_to_prev_segment)
 {
 	_active = active;
 	_owner = owner;
@@ -121,7 +122,7 @@ void SnakeSegment::instantiate(bool active, SnakeSegment* prev_segment, Snake* o
 	_x_dir = _v_x / _v;
 	_y_dir = _v_y / _v;
 
-	_d_to_prev_segment = distance_between(this, prev_segment);
+	_d_to_prev_segment = d_to_prev_segment;
 }
 
 void SnakeSegment::return_to_pool()
@@ -156,6 +157,11 @@ void SnakeSegment::move(float dt)
 {
 	_x += _v_x * (double)dt;
 	_y += _v_y * (double)dt;
+
+	while (_x > GAME_FIELD_WIDTH)  { _x -= GAME_FIELD_WIDTH; }
+	while (_x < 0)                 { _x += GAME_FIELD_WIDTH; }
+	while (_y > GAME_FIELD_HEIGHT) { _y -= GAME_FIELD_HEIGHT; }
+	while (_y < 0)                 { _y += GAME_FIELD_HEIGHT; }
 }
 
 void SnakeSegment::turn_to_point(double x_to, double y_to, float dt)
@@ -198,9 +204,15 @@ void SnakeSegment::on_act(float dt)
 
 	double x_prev = _prev_segment->_x;
 	double y_prev = _prev_segment->_y;
-	
+
 	double x_dir = x_prev - _x;
+	double x_dir_seamless = x_dir + ((x_dir < 0) ? GAME_FIELD_WIDTH  : -GAME_FIELD_WIDTH);
 	double y_dir = y_prev - _y;
+	double y_dir_seamless = y_dir + ((y_dir < 0) ? GAME_FIELD_HEIGHT : -GAME_FIELD_HEIGHT);
+
+	if (abs(x_dir) > abs(x_dir_seamless)) { x_dir = x_dir_seamless; }
+	if (abs(y_dir) > abs(y_dir_seamless)) { y_dir = y_dir_seamless; }
+	
 	double dir_length = sqrt(x_dir * x_dir + y_dir * y_dir);
 	x_dir = x_dir / dir_length;
 	y_dir = y_dir / dir_length;
