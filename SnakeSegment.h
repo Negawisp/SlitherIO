@@ -30,7 +30,7 @@ protected:
     void turn_to_point(double x_to, double y_to, float dt);
 
 public:
-#define MAX_SPEED_MODIFIER 1.5
+#define MAX_SPEED_MODIFIER 4.5
 #define MIN_SPEED_MODIFIER 0.1
 
     static void initialize_static_fields();
@@ -47,7 +47,7 @@ public:
     SnakeSegment(bool active, SnakeSegment* prev_segment, uint32_t color);
 
     static SnakeSegment* get_from_pool();
-    void instantiate(bool active, SnakeSegment* prev_segment, Snake* owner, uint32_t color, double x, double y);
+    void instantiate(bool active, SnakeSegment* prev_segment, Snake* owner, uint32_t color, double x, double y, double d_to_prev_segment);
     void return_to_pool();
 
     void draw() override;
