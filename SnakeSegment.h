@@ -31,7 +31,7 @@ protected:
 
 public:
 #define MAX_SPEED_MODIFIER 1.5
-#define MIN_SPEED_MODIFIER 0.5
+#define MIN_SPEED_MODIFIER 0.1
 
     static void initialize_static_fields();
     static void destroy_static_fields();
@@ -39,6 +39,8 @@ public:
     double set_v(double v);
     double get_x();
     double get_y();
+    double get_dir_x();
+    double get_dir_y();
     Snake* set_owner(Snake* owner);
 
     SnakeSegment();

@@ -40,6 +40,16 @@ double SnakeSegment::get_y()
 	return _y;
 }
 
+double SnakeSegment::get_dir_x()
+{
+	return _x_dir;
+}
+
+double SnakeSegment::get_dir_y()
+{
+	return _y_dir;
+}
+
 Snake* SnakeSegment::set_owner(Snake* owner)
 {
 	_owner = owner;
@@ -98,15 +108,18 @@ void SnakeSegment::instantiate(bool active, SnakeSegment* prev_segment, Snake* o
 	_prev_segment = prev_segment;
 	_color = color;
 
-	_x = x;
-	_y = y;
-	_r = prev_segment->_r;
-	_v = prev_segment->_v;
-	_v_x = 0;
-	_v_y = 0;
-	_a = 0;
+	_x   = x;
+	_y   = y;
+	_r   = prev_segment->_r;
+	_v   = prev_segment->_v;
+	_v_x = prev_segment->_v_x;
+	_v_y = prev_segment->_v_y;
+	_a   = 0;
 	_a_x = 0;
 	_a_y = 0;
+
+	_x_dir = _v_x / _v;
+	_y_dir = _v_y / _v;
 
 	_d_to_prev_segment = distance_between(this, prev_segment);
 }
@@ -192,12 +205,14 @@ void SnakeSegment::on_act(float dt)
 	x_dir = x_dir / dir_length;
 	y_dir = y_dir / dir_length;
 
-	double speed_modifier = distance_between(this, _prev_segment) / _d_to_prev_segment;
+	double speed_modifier = pow(distance_between(this, _prev_segment) / _d_to_prev_segment, 3);
 	if (speed_modifier > MAX_SPEED_MODIFIER) { speed_modifier = MAX_SPEED_MODIFIER; }
 	if (speed_modifier < MIN_SPEED_MODIFIER) { speed_modifier = MIN_SPEED_MODIFIER; }
 
 	_v_x = _v * x_dir * speed_modifier;
 	_v_y = _v * y_dir * speed_modifier;
+	_x_dir = _v_x / _v;
+	_y_dir = _v_y / _v;
 
 	move(dt);
 }
