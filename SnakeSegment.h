@@ -21,7 +21,13 @@ protected:
     Snake* _owner;
     SnakeSegment* _prev_segment;
 
+    double _x_dir;
+    double _y_dir;
+    double _turning_speed;
+
+    void turn(double angle);
     void move(float dt);
+    void turn_to_point(double x_to, double y_to, float dt);
 
 public:
 #define MAX_SPEED_MODIFIER 1.5

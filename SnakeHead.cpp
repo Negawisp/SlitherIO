@@ -1,14 +1,6 @@
 #include "SnakeHead.h"
 #include "Snake.h"
 
-void SnakeHead::turn(double angle)
-{
-	double new_x_dir = + _x_dir * cos(angle) + _y_dir * sin(angle);
-	double new_y_dir = - _x_dir * sin(angle) + _y_dir * cos(angle);
-	_x_dir = new_x_dir;
-	_y_dir = new_y_dir;
-}
-
 SnakeHead::SnakeHead(bool active, uint32_t color, double turning_speed, double x, double y, double v_x, double v_y, double r) :
 	SnakeSegment()
 {
@@ -40,25 +32,7 @@ void SnakeHead::turn_right(float dt)
 
 void SnakeHead::turn_to_point(double x_to, double y_to, float dt)
 {
-	double x_new_dir = x_to - _x;
-	double y_new_dir = y_to - _y;
-	double dot = _x_dir * x_new_dir + _y_dir * y_new_dir;
-	double det = _x_dir * y_new_dir - _y_dir * x_new_dir;
-	double angle = -atan2(det, dot);
-
-	double max_angle = _turning_speed * (double)dt;
-	
-	if (angle > 0 &&
-		angle > max_angle) {
-		angle = max_angle;
-	}
-
-	if (angle < 0 &&
-		angle < -max_angle) {
-		angle = -max_angle;
-	}
-
-	turn(angle);
+	__super::turn_to_point(x_to, y_to, dt);
 }
 
 void SnakeHead::collide(GameObject* other)

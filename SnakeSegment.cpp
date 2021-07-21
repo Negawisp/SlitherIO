@@ -131,11 +131,41 @@ void SnakeSegment::return_to_pool()
 	segments_pool.push_back(this);
 }
 
+void SnakeSegment::turn(double angle)
+{
+	double new_x_dir = +_x_dir * cos(angle) + _y_dir * sin(angle);
+	double new_y_dir = -_x_dir * sin(angle) + _y_dir * cos(angle);
+	_x_dir = new_x_dir;
+	_y_dir = new_y_dir;
+}
 
 void SnakeSegment::move(float dt)
 {
 	_x += _v_x * (double)dt;
 	_y += _v_y * (double)dt;
+}
+
+void SnakeSegment::turn_to_point(double x_to, double y_to, float dt)
+{
+	double x_new_dir = x_to - _x;
+	double y_new_dir = y_to - _y;
+	double dot = _x_dir * x_new_dir + _y_dir * y_new_dir;
+	double det = _x_dir * y_new_dir - _y_dir * x_new_dir;
+	double angle = -atan2(det, dot);
+
+	double max_angle = _turning_speed * (double)dt;
+
+	if (angle > 0 &&
+		angle > max_angle) {
+		angle = max_angle;
+	}
+
+	if (angle < 0 &&
+		angle < -max_angle) {
+		angle = -max_angle;
+	}
+
+	turn(angle);
 }
 
 void SnakeSegment::draw()

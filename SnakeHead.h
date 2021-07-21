@@ -7,11 +7,6 @@ class SnakeHead :
     public SnakeSegment
 {
 private:
-    double _x_dir;
-    double _y_dir;
-    double _turning_speed;
-    
-    void turn(double angle);
 public:
     SnakeHead(bool active, uint32_t color, double turning_speed, double x, double y, double v_x, double v_y, double r);
     void turn_left(float dt);
