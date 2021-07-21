@@ -16,6 +16,7 @@ private:
 protected:
     double _v_x, _v_y, _v;
     double _a_x, _a_y, _a;
+    double _d_to_prev_segment;
     uint32_t _color;
     Snake* _owner;
     SnakeSegment* _prev_segment;
@@ -23,6 +24,9 @@ protected:
     void move(float dt);
 
 public:
+#define MAX_SPEED_MODIFIER 1.5
+#define MIN_SPEED_MODIFIER 0.5
+
     static void initialize_static_fields();
     static void destroy_static_fields();
 

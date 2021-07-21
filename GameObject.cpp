@@ -36,6 +36,11 @@ CollideLayer GameObject::get_collide_layer()
     return _collide_layer;
 }
 
+double GameObject::distance_between(const GameObject* a, const GameObject* b)
+{
+	return sqrt(pow((a->_x - b->_x), 2) + pow((a->_y - b->_y), 2));
+}
+
 GameObject::~GameObject()
 {
 	game_objects.erase(this);

@@ -20,6 +20,7 @@ protected:
 	double _r;
 
 public:
+	static double distance_between(const GameObject* a, const GameObject* b);
 	static std::set<GameObject*> game_objects;
 	static void delete_all_game_objects(); // TO BE CALLED AT THE VERY VERY END!!!
 

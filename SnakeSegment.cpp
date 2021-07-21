@@ -77,6 +77,8 @@ SnakeSegment::SnakeSegment(bool active, SnakeSegment* prev_segment, uint32_t col
 	_a_x = 0;
 	_a_y = 0;
 
+	_d_to_prev_segment = distance_between(this, prev_segment);
+
 	_owner = nullptr;
 	_prev_segment = prev_segment;
 	_color = color;
@@ -105,6 +107,8 @@ void SnakeSegment::instantiate(bool active, SnakeSegment* prev_segment, Snake* o
 	_a = 0;
 	_a_x = 0;
 	_a_y = 0;
+
+	_d_to_prev_segment = distance_between(this, prev_segment);
 }
 
 void SnakeSegment::return_to_pool()
@@ -113,6 +117,7 @@ void SnakeSegment::return_to_pool()
 	_prev_segment = nullptr;
 	_color = 0;
 
+	_d_to_prev_segment = 0;
 	_r = 0;
 	_x = 0;
 	_y = 0;
@@ -157,8 +162,12 @@ void SnakeSegment::on_act(float dt)
 	x_dir = x_dir / dir_length;
 	y_dir = y_dir / dir_length;
 
-	_v_x = _v * x_dir;
-	_v_y = _v * y_dir;
+	double speed_modifier = distance_between(this, _prev_segment) / _d_to_prev_segment;
+	if (speed_modifier > MAX_SPEED_MODIFIER) { speed_modifier = MAX_SPEED_MODIFIER; }
+	if (speed_modifier < MIN_SPEED_MODIFIER) { speed_modifier = MIN_SPEED_MODIFIER; }
+
+	_v_x = _v * x_dir * speed_modifier;
+	_v_y = _v * y_dir * speed_modifier;
 
 	move(dt);
 }
