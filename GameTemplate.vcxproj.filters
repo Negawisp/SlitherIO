@@ -35,6 +35,12 @@
     <ClCompile Include="PlayerSnake.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Food\Food.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Managers\CollidingManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -65,6 +71,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PlayerSnake.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Food\Food.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\CollidingManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

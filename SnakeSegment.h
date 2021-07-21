@@ -10,12 +10,10 @@ class SnakeSegment :
     public GameObject
 {
 private:
-    static const int SEGMENTS_POOL_CAPACITY = 99999;
+    static const int SEGMENTS_POOL_CAPACITY = 1024;
     static std::vector<SnakeSegment*> segments_pool;
 
 protected:
-    double _r;
-    double _x, _y;
     double _v_x, _v_y, _v;
     double _a_x, _a_y, _a;
     uint32_t _color;
@@ -31,9 +29,10 @@ public:
     double set_v(double v);
     double get_x();
     double get_y();
+    Snake* set_owner(Snake* owner);
 
     SnakeSegment();
-    SnakeSegment(bool active, SnakeSegment* prev_segment, Snake* owner, uint32_t color);
+    SnakeSegment(bool active, SnakeSegment* prev_segment, uint32_t color);
 
     static SnakeSegment* get_from_pool();
     void instantiate(bool active, SnakeSegment* prev_segment, Snake* owner, uint32_t color, double x, double y);

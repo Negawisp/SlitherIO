@@ -1,10 +1,11 @@
 #include "SnakeSegment.h"
 
-std::vector<SnakeSegment*> SnakeSegment::segments_pool(SEGMENTS_POOL_CAPACITY);
+std::vector<SnakeSegment*> SnakeSegment::segments_pool(2*SEGMENTS_POOL_CAPACITY);
 
 void SnakeSegment::initialize_static_fields()
 {
-	for (int i = 0; i < SEGMENTS_POOL_CAPACITY; i++)
+	int capacity = SEGMENTS_POOL_CAPACITY;
+	for (int i = 0; i < capacity; i++)
 	{
 		segments_pool.push_back(new SnakeSegment());
 	}
@@ -39,6 +40,12 @@ double SnakeSegment::get_y()
 	return _y;
 }
 
+Snake* SnakeSegment::set_owner(Snake* owner)
+{
+	_owner = owner;
+	return _owner;
+}
+
 SnakeSegment::SnakeSegment() :
 	GameObject(false, CollideLayer::SNAKE)
 {
@@ -57,13 +64,9 @@ SnakeSegment::SnakeSegment() :
 	_a_y = 0;
 }
 
-SnakeSegment::SnakeSegment(bool active, SnakeSegment* prev_segment, Snake* owner, uint32_t color) :
+SnakeSegment::SnakeSegment(bool active, SnakeSegment* prev_segment, uint32_t color) :
 	GameObject(active, CollideLayer::SNAKE)
 {
-	_owner = owner;
-	_prev_segment = prev_segment;
-	_color = color;
-
 	_r   = prev_segment->_r;
 	_x   = prev_segment->_x;
 	_y   = prev_segment->_y;
@@ -73,6 +76,10 @@ SnakeSegment::SnakeSegment(bool active, SnakeSegment* prev_segment, Snake* owner
 	_a   = 0;
 	_a_x = 0;
 	_a_y = 0;
+
+	_owner = nullptr;
+	_prev_segment = prev_segment;
+	_color = color;
 }
 
 SnakeSegment* SnakeSegment::get_from_pool()

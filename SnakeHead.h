@@ -13,7 +13,7 @@ private:
     
     void turn(double angle);
 public:
-    SnakeHead(bool active, Snake* owner, uint32_t color, double turning_speed, double x, double y, double v_x, double v_y, double r);
+    SnakeHead(bool active, uint32_t color, double turning_speed, double x, double y, double v_x, double v_y, double r);
     void turn_left(float dt);
     void turn_right(float dt);
     void turn_to_point(double x_to, double y_to, float dt);

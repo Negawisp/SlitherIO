@@ -1,4 +1,5 @@
 #include "SnakeHead.h"
+#include "Snake.h"
 
 void SnakeHead::turn(double angle)
 {
@@ -8,7 +9,7 @@ void SnakeHead::turn(double angle)
 	_y_dir = new_y_dir;
 }
 
-SnakeHead::SnakeHead(bool active, Snake* owner, uint32_t color, double turning_speed, double x, double y, double v_x, double v_y, double r) :
+SnakeHead::SnakeHead(bool active, uint32_t color, double turning_speed, double x, double y, double v_x, double v_y, double r) :
 	SnakeSegment()
 {
 	_active = active;
@@ -21,6 +22,8 @@ SnakeHead::SnakeHead(bool active, Snake* owner, uint32_t color, double turning_s
 	_x_dir = v_x / _v;
 	_y_dir = v_y / _v;
 	_turning_speed = abs(turning_speed);
+	_color = color;
+	_collide_layer = CollideLayer::SNAKE_HEAD;
 }
 
 void SnakeHead::turn_left(float dt)
@@ -62,6 +65,7 @@ void SnakeHead::collide(GameObject* other)
 {
 	if (CollideLayer::FOOD == other->get_collide_layer()) {
 		// grow
+		this->_owner->grow();
 	}
 
 	if (CollideLayer::SNAKE == other->get_collide_layer() &&

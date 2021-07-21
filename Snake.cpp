@@ -4,12 +4,14 @@
 #include <vector>
 
 
-Snake::Snake(bool active, int n_segments, double head_x, double head_y, uint32_t color) :
+Snake::Snake(bool active, int n_segments, double head_x, double head_y, uint32_t color, uint32_t head_color) :
 	GameObject(active, CollideLayer::NONE),
 	_snake_segments()
 {
-	_head = new SnakeHead(true, this, color, TURNING_SPEED, head_x, head_y, V_STANDARD, 0, INITIAL_R);
+	_accelerates = false;
 	_color = color;
+	_head = new SnakeHead(true, head_color, TURNING_SPEED, head_x, head_y, V_STANDARD, 0, INITIAL_R);
+	_head->set_owner(this);
 
 	// Make initial snake
 	SnakeSegment* prev_segment = _head;

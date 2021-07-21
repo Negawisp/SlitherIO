@@ -146,8 +146,10 @@
     <ClInclude Include="CollideLayer.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="Food\Food.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GfxManager.h" />
+    <ClInclude Include="Managers\CollidingManager.h" />
     <ClInclude Include="PlayerSnake.h" />
     <ClInclude Include="Snake.h" />
     <ClInclude Include="SnakeGO.h" />
@@ -156,9 +158,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Food\Food.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GfxManager.cpp" />
+    <ClCompile Include="Managers\CollidingManager.cpp" />
     <ClCompile Include="PlayerSnake.cpp" />
     <ClCompile Include="Snake.cpp" />
     <ClCompile Include="SnakeHead.cpp" />
