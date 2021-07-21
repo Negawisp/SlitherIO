@@ -2,6 +2,7 @@
 #define GAME_OBJECT
 
 #include "GameObject.h"
+#include "Constants.h"
 #include <algorithm>
 
 int GameObject::_game_objects_count = 0;
@@ -38,7 +39,12 @@ CollideLayer GameObject::get_collide_layer()
 
 double GameObject::distance_between(const GameObject* a, const GameObject* b)
 {
-	return sqrt(pow((a->_x - b->_x), 2) + pow((a->_y - b->_y), 2));
+	double d_x = abs(a->_x - b->_x);
+	double d_y = abs(a->_y - b->_y);
+	double d_x_seamless = GAME_FIELD_WIDTH  - d_x;
+	double d_y_seamless = GAME_FIELD_HEIGHT - d_y;
+	double d = sqrt(pow(fmin(d_x, d_x_seamless), 2) + pow(fmin(d_y, d_y_seamless), 2));
+	return d;
 }
 
 GameObject::~GameObject()
